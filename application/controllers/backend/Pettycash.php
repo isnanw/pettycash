@@ -1,4 +1,9 @@
 <?php
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Dompdf\Dompdf as Dompdf;
 class Pettycash extends CI_Controller{
 /**
 * Description of Controller
@@ -333,6 +338,55 @@ class Pettycash extends CI_Controller{
 		}
 	}
 
+
+	public function excel()
+		{
+			$spreadsheet = new Spreadsheet();
+			$sheet = $spreadsheet->getActiveSheet();
+			$sheet->setCellValue('A1', 'No');
+			$sheet->setCellValue('B1', 'Tanggal');
+			$sheet->setCellValue('C1', 'Biaya');
+			$sheet->setCellValue('D1', 'Keterangan / Bagian');
+			$sheet->setCellValue('E1', 'Karyawan / Atasan');
+			$sheet->setCellValue('F1', 'Status');
+			
+			$petty = $this->pettycash_model->get_datatablesadmin();
+			$no = 1;
+			$x = 2;
+			foreach($petty as $row)
+			{
+				$sheet->setCellValue('A'.$x, $no++);
+				$sheet->setCellValue('B'.$x, $row->tgl_pettycash);
+				$sheet->setCellValue('C'.$x, $row->biaya_pettycash);
+				$sheet->setCellValue('D'.$x, $row->ket_pettycash.' ('.$row->namabagian.')');
+				$sheet->setCellValue('E'.$x, $row->user_name.' ('.$row->namaatasan.') ');
+				$sheet->setCellValue('F'.$x, $row->status);
+				$x++;
+			}
+			$writer = new Xlsx($spreadsheet);
+			$filename = 'laporan-petty';
+			
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+			header('Cache-Control: max-age=0');
+	
+			$writer->save('php://output');
+		}
+
+		public function pdf()
+		{
+			$data['title'] = 'Laporan Pdf';
+
+			$data['bon'] = $this->pettycash_model->get_laporan();
+			$data['hariini'] = date('d F Y');
+
+			$dompdf = new Dompdf();
+			$dompdf->setPaper('A4', 'Landscape');
+			$html = $this->load->view('backend/laporan/cetakbonhijau', $data, true);
+			$dompdf->load_html($html);
+			$dompdf->render();
+			$dompdf->stream('Laporan Data Bon Hijau ', array("Attachment" => false));
+		}
 
 
 }

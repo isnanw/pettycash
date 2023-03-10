@@ -71,6 +71,16 @@ class Pettycash_model extends CI_Model{
 		return $query->result();
 	}
 
+	function get_laporan(){
+		$query = "SELECT * FROM tb_pettycash tp
+					LEFT JOIN tbl_user tu on tu.user_id = tp.id_user_pettycash
+					LEFT JOIN tb_atasan ta on ta.id_atasan = tp.id_user_manager
+					LEFT JOIN tb_bagian tb on tb.id_bagian = tp.id_bagian
+					ORDER BY tp.id_pettycash DESC";
+        return $this->db->query($query)->result_array();
+        echo json_encode($query);
+	}
+
 	public function count_filtered()
 	{
 		$this->_get_datatables_query();
