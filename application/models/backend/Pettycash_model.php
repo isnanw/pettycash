@@ -71,11 +71,35 @@ class Pettycash_model extends CI_Model{
 		return $query->result();
 	}
 
-	function get_laporan(){
+	function get_laporan_excel($id)
+	{
+		if (!empty($id)) {
+			$klausa='WHERE id_user_pettycash = '.$id;
+		}else{
+			$klausa='';
+		}
 		$query = "SELECT * FROM tb_pettycash tp
 					LEFT JOIN tbl_user tu on tu.user_id = tp.id_user_pettycash
 					LEFT JOIN tb_atasan ta on ta.id_atasan = tp.id_user_manager
 					LEFT JOIN tb_bagian tb on tb.id_bagian = tp.id_bagian
+					$klausa
+					ORDER BY tp.id_pettycash DESC";
+        return $this->db->query($query)->result();
+        echo json_encode($query);
+	}
+
+	function get_laporan($id)
+	{
+		if (!empty($id)) {
+			$klausa='WHERE id_user_pettycash = '.$id;
+		}else{
+			$klausa='';
+		}
+		$query = "SELECT * FROM tb_pettycash tp
+					LEFT JOIN tbl_user tu on tu.user_id = tp.id_user_pettycash
+					LEFT JOIN tb_atasan ta on ta.id_atasan = tp.id_user_manager
+					LEFT JOIN tb_bagian tb on tb.id_bagian = tp.id_bagian
+					$klausa
 					ORDER BY tp.id_pettycash DESC";
         return $this->db->query($query)->result_array();
         echo json_encode($query);

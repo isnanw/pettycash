@@ -24,8 +24,8 @@
                             </div>
                                     <div class="col-12 col-md-4">
                                 <div class="btn-group mb-3" role="group" aria-label="Basic example">
-                                    <a  href="<?= base_url('Backend/Pettycash/excel');  ?>" class="btn btn-success" target="_blank" ><i class="bi bi-printer"></i> Excel</a>&nbsp;&nbsp;\
-                                    <a  href="<?= base_url('Backend/Pettycash/pdf');  ?>" class="btn btn-danger" target="_blank"><i class="bi bi-printer"></i> PDF</a>&nbsp;&nbsp;
+                                    <a  class="btn btn-success" target="_blank" onclick="cetakexcel()"><i class="bi bi-printer"></i> Excel</a>&nbsp;&nbsp;
+                                    <a  class="btn btn-danger" target="_blank" onclick="cetakpdf()"><i class="bi bi-printer"></i> PDF</a>&nbsp;&nbsp;
                                     <button type="button" id="btn-filter" class="btn btn-primary"><i class="bi bi-search"></i> Filter Data</button>&nbsp;&nbsp;
                                     <button type="button" id="btn-reset" class="btn btn-success"><i class="bi bi-bootstrap-reboot"></i> Refresh</button>
                                 </div>
@@ -155,6 +155,21 @@ function add_pettycash()
     $('.modal-title').text('Tambah pettycash');
 
 }
+
+function cetakpdf()
+{
+    var kar = $("#id_user_pettycash").val();
+    var base_url = '<?php echo base_url(); ?>';
+    window.open("<?php echo base_url();?>/backend/PettyCash/pdf/"+kar, "_blank");
+}
+
+function cetakexcel()
+{
+    var kar = $("#id_user_pettycash").val();
+    var base_url = '<?php echo base_url(); ?>';
+    window.open("<?php echo base_url();?>/backend/PettyCash/excel/"+kar, "_blank");
+}
+
 
 function edit_pettycash(id_pettycash)
 {

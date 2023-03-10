@@ -349,8 +349,8 @@ class Pettycash extends CI_Controller{
 			$sheet->setCellValue('D1', 'Keterangan / Bagian');
 			$sheet->setCellValue('E1', 'Karyawan / Atasan');
 			$sheet->setCellValue('F1', 'Status');
-			
-			$petty = $this->pettycash_model->get_datatablesadmin();
+			$id = $this->uri->segment(4);
+			$petty = $this->pettycash_model->get_laporan_excel($id);
 			$no = 1;
 			$x = 2;
 			foreach($petty as $row)
@@ -376,8 +376,8 @@ class Pettycash extends CI_Controller{
 		public function pdf()
 		{
 			$data['title'] = 'Laporan Pdf';
-
-			$data['bon'] = $this->pettycash_model->get_laporan();
+			$id = $this->uri->segment(4);
+			$data['bon'] = $this->pettycash_model->get_laporan($id);
 			$data['hariini'] = date('d F Y');
 
 			$dompdf = new Dompdf();
