@@ -1,5 +1,5 @@
 <?php
-class Pettycashdirektur_model extends CI_Model{
+class Pettycashmerahdirektur_model extends CI_Model{
 
 
 	var $tablepettycash = 'tb_pettycash';
@@ -43,13 +43,13 @@ class Pettycashdirektur_model extends CI_Model{
 
 
 	}
-	function get_datatables(){
+	function get_datatables($id){
 		$this->db->join ( 'tbl_user', 'tbl_user.user_id = tb_pettycash.id_user_pettycash' , 'left' );
 		$this->db->join ( 'tb_atasan', 'tb_pettycash.id_user_manager = tb_atasan.id_atasan' , 'left' );
 		$this->db->join ( 'tb_bagian', 'tb_pettycash.id_bagian = tb_bagian.id_bagian' , 'left' );
-		$this->db->where('tb_pettycash.status', 'DISETUJUI');
-		$this->db->or_where('tb_pettycash.status', 'RILIS');
-		$this->db->or_where('tb_pettycash.status', 'NONRILIS');
+		// $this->db->where('tbl_user.user_atasan', $id);
+		$this->db->where('tb_pettycash.status_bonmerah', 'DISETUJUI');
+		$this->db->or_where('tb_pettycash.status_bonmerah', 'RILIS');
 		$this->db->order_by('id_pettycash', 'desc');
 		$this->_get_datatables_query();
 		if($_POST['length'] != -1)
@@ -61,6 +61,11 @@ class Pettycashdirektur_model extends CI_Model{
 
 	public function count_filtered()
 	{
+		$this->db->join ( 'tbl_user', 'tbl_user.user_id = tb_pettycash.id_user_pettycash' , 'left' );
+		$this->db->join ( 'tb_atasan', 'tb_pettycash.id_user_manager = tb_atasan.id_atasan' , 'left' );
+		// $this->db->where('tbl_user.user_atasan', $id);
+		// $this->db->where('tb_pettycash.status', 'RILIS');
+		// $this->db->where('tb_pettycash.status_bonmerah', 'PENGAJUAN');
 		$this->_get_datatables_query();
 		$query = $this->db->get();
 		return $query->num_rows();
@@ -69,6 +74,11 @@ class Pettycashdirektur_model extends CI_Model{
 	public function count_all()
 	{
 		$this->db->from($this->tablepettycash);
+		$this->db->join ( 'tbl_user', 'tbl_user.user_id = tb_pettycash.id_user_pettycash' , 'left' );
+		$this->db->join ( 'tb_atasan', 'tb_pettycash.id_user_manager = tb_atasan.id_atasan' , 'left' );
+		// $this->db->where('tbl_user.user_atasan', $id);
+		// $this->db->where('tb_pettycash.status', 'RILIS');
+		// $this->db->where('tb_pettycash.status_bonmerah', 'PENGAJUAN');
 		return $this->db->count_all_results();
 	}
 	function get_all_karyawan(){

@@ -53,7 +53,7 @@ class Pettycashmerah extends CI_Controller{
 		$no = $_POST['start'];
 		foreach ($list as $d) {
 			$no++;
-			$status = $d->status;
+			$status = $d->status_bonmerah;
 			$gambar = $d->imgbukti;
 			$tanpagambar = '<span class="badge bg-light-danger">Belum Upload</span>';
 			$adagambar = "<div class='row gallery' data-bs-toggle='modal' data-bs-target='#galleryModal$d->id_pettycash'><a href='#'><img class='w-50 active' src='../assets/images/fotobukti/$d->imgbukti' data-bs-target='#Gallerycarousel'></a></div>";
@@ -74,11 +74,13 @@ class Pettycashmerah extends CI_Controller{
 			}
 
 			if ($status == 'PENGAJUAN') {
-				$class = 'lock';
-				$ket = 'Pengajuan';
-				$icon = 'arrow-up';
-				$actket = 'Pengajuan';
+				$class 		= 'lock';
+				$ket 			= 'Pengajuan';
+				$icon 		= 'arrow-up';
+				$actket 	= 'Pengajuan';
 				$actclass = 'primary';
+				// $tgl			= '<small><b>'.$d->status.'</b>: '.format_indo(date($d->tgl_pettycash)).'</small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_bonmerah)).'</small>';
 			}elseif ($status == 'DISETUJUI'){
 				$class = 'lock';
 				$ket = 'Disetujui';
@@ -86,6 +88,7 @@ class Pettycashmerah extends CI_Controller{
 				$actket = 'Disetujui';
 				$actclass = 'success';
 				$button = '-';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_bonmerah)).'<br> <b>Disetujui</b>: '.format_indo(date($d->tgl_bonmerah_manajer)).'</small>';
 			}elseif ($status == 'DITOLAK'){
 				$class = 'unlock';
 				$ket = 'Ditolak';
@@ -93,19 +96,30 @@ class Pettycashmerah extends CI_Controller{
 				$actket = 'Ditolak';
 				$actclass = 'danger';
 				$button = '-';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_bonmerah)).'<br> <b>Disetujui</b>: '.format_indo(date($d->tgl_bonmerah_manajer)).'</small>';
+			}elseif ($status == 'RILIS'){
+				$class 		= 'unlock';
+				$ket 			= 'Rilis';
+				$icon 		= 'check2';
+				$actket 	= 'Rilis';
+				$actclass = 'primary';
+				$button 	= '<small><span class="bg-light-primary"><b>Rilis</b>, Pada: <br>'.format_indo(date($d->tgl_bonmerah_direktur)).'<br><b>'.$d->catatan_direktur_bonmerah.'</b></span></small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_bonmerah)).'<br> <b>Disetujui</b>: '.format_indo(date($d->tgl_bonmerah_manajer)).'<br><b>Dirilis</b>: '.format_indo(date($d->tgl_bonmerah_direktur)).'</small>';
 			}else{
-				$class = 'unlock';
-				$ket = 'Rilis';
-				$icon = 'check';
-				$actket = 'Rilis';
+				$class 		= 'unlock';
+				$ket 			= 'Rilis Bon Hijau';
+				$icon 		= 'check';
+				$actket 	= 'Rilis Bon Hijau';
 				$actclass = 'success';
-				$button = $button;
+				$button 	= $button;
+				$tgl			= '<small><b>Bon Hijau Dirilis</b>: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'</small>';
 			}
+
 			$row = array();
 			$row[] = $no;
 
 			// $row[] = "<div class='row gallery' data-bs-toggle='modal' data-bs-target='#galleryModal$d->id_pettycashmerah'><a href='#'><img class='w-100 active' src='../assets/images/fotobukti/$d->imgbukti' data-bs-target='#Gallerycarousel'></a></div>";
-			$row[] = '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Disetujui</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'<br> <b>Dirilis</b>: '.format_indo(date($d->tgl_pettycash_direktur)).'</small>';
+			$row[] = $tgl;
 			$row[] = "Rp " . number_format($d->biaya_pettycash, 0, "", ",");
 			$row[] = $d->ket_pettycash.''.'<br><small><span class="badge bg-light-warning">'.$d->namabagian.'</span></small>';
 			$row[] = $d->user_name. '<br><span class="badge bg-light-warning">'.$d->namaatasan.'</span>' ;
@@ -236,10 +250,16 @@ class Pettycashmerah extends CI_Controller{
 		// INSERT LOG
 		$users = $this->session->userdata('id');
 
+		date_default_timezone_set("Asia/Jayapura");
+		$DATE_FORMAT = "Y-m-d H:i:s";
+		$waktu = date($DATE_FORMAT);
+
 		$ajax_data['ket_pettycash'] = $this->input->post('ket',TRUE);
 		$ajax_data['biaya_pettycash'] = $this->input->post('biaya',TRUE);
 		$ajax_data['id_bagian'] = $this->input->post('bagian',TRUE);
 		$ajax_data['id_user_pettycash'] = $users;
+		$ajax_data['status_bonmerah'] = 'PENGAJUAN';
+		$ajax_data['tgl_bonmerah'] = $waktu;
 
 		if ($this->pettycashmerah_model->update_entry($pettycashid, $ajax_data)) {
 

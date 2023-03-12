@@ -210,11 +210,34 @@
 
                     <!-- MENU KHUSUS MANAJER -->
                     <?php elseif($this->session->userdata('access')=='4'):?>
-                        <li class="sidebar-item <?php echo $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ?>">
+                        <!-- <li class="sidebar-item <?php echo $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ?>">
                             <a href="<?php echo site_url('backend/pettycashmanajer');?>" class='sidebar-link'>
                                 <i class="bi bi-cash"></i>
                                 <span>Approve Petty Cash</span>
                             </a>
+                        </li> -->
+                        <li class="sidebar-item <?php echo
+                                    $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'pettycashmerahmanajer' ? 'active': ''
+
+                                    ?> has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-cash"></i>
+                                <span>Petty Cash</span>
+                            </a>
+                            <ul class="submenu <?php echo
+                                        $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ||
+                                        $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                        $this->uri->segment(2) == 'pettycashmerahmanajer' ? 'active': ''
+                                    ?>">
+                                <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ?>">
+                                    <a href="<?php echo site_url('backend/pettycashmanajer');?>">Bon Hijau</a>
+                                </li>
+                                <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerahmanajer' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
+                                    <a href="<?php echo site_url('backend/pettycashmerahmanajer');?>">Bon Merah</a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="sidebar-item <?php echo $this->uri->segment(2) == 'profil' ? 'active': '' ?>">
@@ -227,11 +250,34 @@
 
                         <!-- MENU KHUSUS DIREKTUR -->
                         <?php elseif($this->session->userdata('access')=='5'):?>
-                            <li class="sidebar-item <?php echo $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ?>">
+                            <!-- <li class="sidebar-item <?php echo $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ?>">
                                 <a href="<?php echo site_url('backend/pettycashdirektur');?>" class='sidebar-link'>
                                     <i class="bi bi-cash"></i>
                                     <span>Release Petty Cash</span>
                                 </a>
+                            </li> -->
+                            <li class="sidebar-item <?php echo
+                                    $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'pettycashmerahdirektur' ? 'active': ''
+
+                                    ?> has-sub">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-cash"></i>
+                                    <span>Petty Cash</span>
+                                </a>
+                                <ul class="submenu <?php echo
+                                            $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ||
+                                            $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                            $this->uri->segment(2) == 'pettycashmerahdirektur' ? 'active': ''
+                                        ?>">
+                                    <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ?>">
+                                        <a href="<?php echo site_url('backend/pettycashdirektur');?>">Bon Hijau</a>
+                                    </li>
+                                    <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerahdirektur' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
+                                        <a href="<?php echo site_url('backend/pettycashmerahdirektur');?>">Bon Merah</a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="sidebar-item <?php echo $this->uri->segment(2) == 'profil' ? 'active': '' ?>">

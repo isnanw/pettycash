@@ -23,36 +23,38 @@
                         ?>
                         <div class="row">
                             <input type="hidden" class="id" name="id"/>
-                            <b class="text-center">(*jpg, png, jpeg, webp dan ukuran maksimal 5mb)</b>
-                            <div class="coll-12 col-md-12 text-center">
-                                <div class="show_img"><br></div>
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="formFileSm" class="form-label">Ungguh Foko Bukti</label><br>
-                                    <input type="file" alt="Ungguh File" class="form-control form-control-sm" id="picture_1" accept=".jpg,.jpeg,.png,.webp">
+                                    <label for="valid-state">Biaya <b>(Rp)</b></label>
+                                    <input readonly type="number" name="biaya" class="form-control biaya" id="biaya" placeholder="Biaya" required>
                                     <span class="help-block text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group" hidden>
-                                    <label for="bagian">Bagian</label>
-                                    <select class="form-select bagian" name="bagian" id="bagian" style="width:100%">
-                                            <option value="">[Pilih Bagian]</option>
-                                            <?php foreach ($bagian->result() as $row) : ?>
-                                                <option value="<?php echo $row->id_bagian;?>"><?php echo $row->namabagian;?></option>
-                                            <?php endforeach;?>
-                                    </select>
-                                    <span class="help-block text-danger"></span>
-                                </div>
-                            <div class="col-12" hidden>
-                                <div class="form-group">
-                                    <label for="biaya">Biaya <b>(Rp)</b></label>
-                                    <input type="number" name="biaya" class="form-control biaya" id="biaya" placeholder="Biaya" required>
-                                    <span class="help-block text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12" hidden>
+                            <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control ket" placeholder="Masukkan Keterangan Pettycash" name="ket" id="ket"></textarea>
-                                    <label for="floatingTextarea">Masukkan Keterangan pettycash</label>
+                                    <textarea readonly class="form-control ket" placeholder="Masukkan Keterangan Pettycash" name="ket" id="ket" rows="4"></textarea>
+                                    <label for="floatingTextarea">Keterangan Pettycash</label>
+                                    <span class="help-block text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="divider">
+                                    <div class="divider-text">Rilis Pettycash Bon Merah</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pembahasan">Bahas</b></label>
+                                 <select class="form-select pembahasan" name="pembahasan" id="pembahasan" style="width:100%" required>
+                                    <option value="">[Pilih Rilis]</option>
+                                    <option value="RILIS">RILIS</option>
+                                    <option value="NONRILIS">DITOLAK</option>
+                                </select>
+                                <span class="help-block text-danger"></span>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control catatandirektur" placeholder="Masukkan Catatan Manajer" name="catatandirektur" id="catatandirektur" rows="4"></textarea>
+                                    <label for="floatingTextarea">Catatan</label>
                                     <span class="help-block text-danger"></span>
                                 </div>
                             </div>

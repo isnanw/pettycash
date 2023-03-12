@@ -65,12 +65,13 @@ class Pettycash extends CI_Controller{
 				$actket = 'Pengajuan';
 				$actclass = 'primary';
 				if($this->session->userdata('access') == "1"){
-					$button = '-';
+					$button = '<small><span class="bg-light-info">Tidak ada aksi</span></small>';
 				}else{
 					$button = '<div class="btn-group mb-1"><div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opsi</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton7"><a class="dropdown-item item_edit" href="javascript:void()" title="Edit" onclick="edit_pettycash('."'".$d->id_pettycash."'".')"><i class="bi bi-pen-fill"></i> Edit</a>
 					<a class="dropdown-item delete_record" href="javascript:void()" title="Hapus" id="del" value="'.$d->id_pettycash.'"><i class="bi bi-trash"></i> Hapus</a>
 					</div></div></div>';
 				};
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'</small>';
 
 			}elseif ($status == 'DISETUJUI'){
 				$class = 'lock';
@@ -78,27 +79,39 @@ class Pettycash extends CI_Controller{
 				$icon = 'check';
 				$actket = 'Disetujui';
 				$actclass = 'success';
-				$button = '-';
+				$button = '<small><span class="bg-light-success"><b>Disetujui</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br>'.$d->catatan_manajer.'</span></small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Dibahas</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'</small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Dibahas</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'</small>';
 			}elseif ($status == 'DITOLAK'){
 				$class = 'unlock';
 				$ket = 'Ditolak';
 				$icon = 'exclamation';
 				$actket = 'Ditolak';
 				$actclass = 'danger';
-				$button = '-';
+				$button = '<small><span class="bg-light-danger"><b>Ditolak</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br>'.$d->catatan_manajer.'</span></small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Dibahas</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'</small>';
+			}elseif ($status == 'NONRILIS'){
+				$class = 'unlock';
+				$ket = 'Tidak Dirilis';
+				$icon = 'exclamation';
+				$actket = 'Tidak Dirilis';
+				$actclass = 'warning';
+				$button = '<small><span class="bg-light-danger"><b>Tidak Rilis</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'<br>'.$d->catatan_direktur.'</span></small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Dibahas</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'<br> <b>Tidak Dirilis</b>: '.format_indo(date($d->tgl_pettycash_direktur)).'</small>';
 			}else{
 				$class = 'unlock';
 				$ket = 'Rilis';
-				$icon = 'exclamation';
+				$icon = 'check';
 				$actket = 'Rilis';
-				$actclass = 'success';
-				$button = '-';
+				$actclass = 'primary';
+				$button = '<small><span class="bg-light-primary"><b>Dirilis</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'<br>'.$d->catatan_direktur.'</span></small>';
+				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_pettycash)).'<br> <b>Dibahas</b>: '.format_indo(date($d->tgl_pettycash_manajer)).'<br> <b>Dirilis</b>: '.format_indo(date($d->tgl_pettycash_direktur)).'</small>';
 			}
 			$row = array();
 			$row[] = $no;
 
 			// $row[] = "<div class='row gallery' data-bs-toggle='modal' data-bs-target='#galleryModal$d->id_pettycash'><a href='#'><img class='w-100 active' src='../assets/images/fotobukti/$d->imgbukti' data-bs-target='#Gallerycarousel'></a></div>";
-			$row[] = format_indo(date($d->tgl_pettycash));
+			$row[] = $tgl;
 			$row[] = "Rp " . number_format($d->biaya_pettycash, 0, "", ",");
 			$row[] = $d->ket_pettycash.''.'<br><small><span class="badge bg-light-warning">'.$d->namabagian.'</span></small>';
 			$row[] = $d->user_name. '<br><span class="badge bg-light-warning">'.$d->namaatasan.'</span>' ;
@@ -136,6 +149,9 @@ class Pettycash extends CI_Controller{
 				"status" 					=> 'PENGAJUAN',
 				"tgl_pettycash_manajer"	 => NULL,
 				"tgl_pettycash_direktur" => NULL,
+				"tgl_bonmerah"	 => NULL,
+				"tgl_bonmerah_manajer"	 => NULL,
+				"tgl_bonmerah_direktur" => NULL,
 				"id_user_pettycash" => $users,
 				"id_user_manager" 	=> $user_atasan,
 				"id_bagian"					=> $this->input->post('bagian',TRUE)
@@ -365,11 +381,11 @@ class Pettycash extends CI_Controller{
 			}
 			$writer = new Xlsx($spreadsheet);
 			$filename = 'laporan-petty';
-			
+
 			header('Content-Type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+			header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
 			header('Cache-Control: max-age=0');
-	
+
 			$writer->save('php://output');
 		}
 

@@ -14,7 +14,7 @@ class Pettycashmanajer extends CI_Controller{
 		};
 		$this->load->model('backend/Pettycashmanajer_model','pettycashmanajer_model');
 		$this->load->model('backend/Stock_model','stock_model');
-		$this->load->model('backend/Absensi_model','absensi_model');
+		// $this->load->model('backend/Absensi_model','absensi_model');
 		$this->load->model('Site_model','site_model');
 		$this->load->helper('text');
 		$this->load->helper('url');
@@ -28,7 +28,7 @@ class Pettycashmanajer extends CI_Controller{
 		$x['site_title'] = $site['site_title'];
 		$x['site_favicon'] = $site['site_favicon'];
 		$x['images'] = $site['images'];
-		$x['title'] = 'Approve Pettycash';
+		$x['title'] = 'Approve Pettycash || Bon Hijau';
 		$x['karyawan'] = $this->pettycashmanajer_model->get_all_karyawan();
 		$x['dataimage'] = $this->pettycashmanajer_model->get_all_bukti();
 		$this->load->view('backend/menu',$x);
@@ -67,14 +67,21 @@ class Pettycashmanajer extends CI_Controller{
 				$icon = 'exclamation';
 				$actket = 'Ditolak';
 				$actclass = 'danger';
-				$button = '<small><span class="bg-light-danger"><b>Ditolak</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br>'.$d->catatan_manajer.'</span></small>';
+				$button = '<small><span class="bg-light-danger"><b>Ditolak</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br><b>'.$d->catatan_manajer.'</b></span></small>';
+			}elseif ($status == 'NONRILIS'){
+				$class = 'unlock';
+				$ket = 'Tidak Rilis';
+				$icon = 'exclamation';
+				$actket = 'Tidak Rilis';
+				$actclass = 'warning';
+				$button = '<small><span class="bg-light-warning"><b>Tidak Diliris</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'<br><b>'.$d->catatan_direktur.'</b></span></small>';
 			}else{
 				$class = 'unlock';
 				$ket = 'Rilis';
-				$icon = 'exclamation';
+				$icon = 'check2';
 				$actket = 'Rilis';
-				$actclass = 'success';
-				$button = '-';
+				$actclass = 'primary';
+				$button = '<small><span class="bg-light-primary"><b>Diliris</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'<br><b>'.$d->catatan_direktur.'</b></span></small>';
 			}
 			$row = array();
 			$row[] = $no;

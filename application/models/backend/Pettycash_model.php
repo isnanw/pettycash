@@ -118,10 +118,11 @@ class Pettycash_model extends CI_Model{
 		return $this->db->count_all_results();
 	}
 	function get_all_karyawan(){
-		$dev = 'IsW';
+		$dev = 'IsWah';
 		$this->db->select('tbl_user.*');
 		$this->db->from('tbl_user');
 		$this->db->where_not_in ( 'user_name', $dev);
+		$this->db->where('user_level',3);
 		$this->db->order_by('user_id', 'DESC');
 		$query = $this->db->get();
 		return $query;
