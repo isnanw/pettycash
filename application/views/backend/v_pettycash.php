@@ -160,14 +160,14 @@ function cetakpdf()
 {
     var kar = $("#id_user_pettycash").val();
     var base_url = '<?php echo base_url(); ?>';
-    window.open("<?php echo base_url();?>/backend/PettyCash/pdf/"+kar, "_blank");
+    window.open("<?php echo base_url();?>backend/pettycash/pdf/"+kar, "_blank");
 }
 
 function cetakexcel()
 {
     var kar = $("#id_user_pettycash").val();
     var base_url = '<?php echo base_url(); ?>';
-    window.open("<?php echo base_url();?>/backend/PettyCash/excel/"+kar, "_blank");
+    window.open("<?php echo base_url();?>backend/pettycash/excel/"+kar, "_blank");
 }
 
 
