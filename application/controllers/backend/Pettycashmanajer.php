@@ -44,7 +44,19 @@ class Pettycashmanajer extends CI_Controller{
 		$no = $_POST['start'];
 		foreach ($list as $d) {
 			$no++;
-			$status = $d->status;
+			$status		= $d->status;
+			$pegawai 	= $d->user_name;
+			$manajer 	= $d->namaatasan;
+			$biaya		= "Rp " . number_format($d->biaya_pettycash, 0, "", ",");
+			$ket			= $d->ket_pettycash;
+			$tglpengajuan	= format_indo(date($d->tgl_pettycash));
+			$tglsetujui		= format_indo(date($d->tgl_pettycash_manajer));
+			$catatan			= $d->catatan_manajer;
+
+			$pesan	= 'Bon Hijau atas nama '.$pegawai.' diajukan pada '.$tglpengajuan.' dengan keterangan '.$ket.', total biaya '.$biaya.' telah disetujui oleh manajer '.$manajer.' pada '.$tglsetujui.' dengan catatan '.$catatan.'. Mohon ditindaklanjuti. Terimakasih';
+
+			$wa = '<a title="Notif WA Ke Direktur" class="btn btn-sm btn-success" href="https://wa.me/6281213336906/?text='.$pesan.'" target="_blank"><i class="bi bi-whatsapp"></i> Notif WA</a>';
+
 			if ($status == 'PENGAJUAN') {
 				$class = 'lock';
 				$ket = 'Pengajuan';
@@ -60,7 +72,7 @@ class Pettycashmanajer extends CI_Controller{
 				$icon = 'check';
 				$actket = 'Disetujui';
 				$actclass = 'success';
-				$button = '<small><span class="bg-light-success"><b>Disetujui</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br>'.$d->catatan_manajer.'</span><small>';
+				$button = '<small><span class="bg-light-success"><b>Disetujui</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br><b>'.$d->catatan_manajer.'</b></span><small><br>'.$wa.'';
 			}elseif ($status == 'DITOLAK'){
 				$class = 'unlock';
 				$ket = 'Ditolak';

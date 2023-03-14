@@ -46,6 +46,18 @@ class Pettycashmerahmanajer extends CI_Controller{
 			$no++;
 			$status = $d->status_bonmerah;
 			$gambar = $d->imgbukti;
+			$pegawai 	= $d->user_name;
+			$manajer 	= $d->namaatasan;
+			$biaya		= "Rp " . number_format($d->biaya_pettycash, 0, "", ",");
+			$ket			= $d->ket_pettycash;
+			$tglpengajuan	= format_indo(date($d->tgl_bonmerah));
+			$tglsetujui		= format_indo(date($d->tgl_bonmerah_manajer));
+			$catatan			= $d->catatan_manajer_bonmerah;
+
+			$pesan	= 'Bon Merah atas nama '.$pegawai.' diajukan pada '.$tglpengajuan.' dengan keterangan '.$ket.', total biaya '.$biaya.' telah disetujui oleh manajer '.$manajer.' pada '.$tglsetujui.' dengan catatan '.$catatan.'. Mohon ditindaklanjuti. Terimakasih';
+
+			$wa = '<a title="Notif WA Ke Direktur" class="btn btn-sm btn-success" href="https://wa.me/6281213336906/?text='.$pesan.'" target="_blank"><i class="bi bi-whatsapp"></i> Notif WA</a>';
+
 			$tanpagambar = '<span class="badge bg-light-danger">Belum Upload</span>';
 			$adagambar = "<div class='row gallery' data-bs-toggle='modal' data-bs-target='#galleryModal$d->id_pettycash'><a href='#'><img class='w-50 active' src='../assets/images/fotobukti/$d->imgbukti' data-bs-target='#Gallerycarousel'></a></div>";
 
@@ -81,7 +93,7 @@ class Pettycashmerahmanajer extends CI_Controller{
 				$icon = 'check';
 				$actket = 'Disetujui';
 				$actclass = 'success';
-				$button = '<small><span class="bg-light-success"><b>Disetujui</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br><b>'.$d->catatan_manajer.'</b></span></small>';
+				$button = '<small><span class="bg-light-success"><b>Disetujui</b>, Pada: <br>'.format_indo(date($d->tgl_pettycash_manajer)).'<br><b>'.$d->catatan_manajer_bonmerah.'</b></span></small><br>'.$wa.'';
 				$tgl			= '<small><b>Diajukan</b>: '.format_indo(date($d->tgl_bonmerah)).'<br> <b>Disetujui</b>: '.format_indo(date($d->tgl_bonmerah_manajer)).'</small>';
 			}elseif ($status == 'DITOLAK'){
 				$class = 'unlock';
