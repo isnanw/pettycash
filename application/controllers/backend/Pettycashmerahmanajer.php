@@ -53,8 +53,9 @@ class Pettycashmerahmanajer extends CI_Controller{
 			$tglpengajuan	= format_indo(date($d->tgl_bonmerah));
 			$tglsetujui		= format_indo(date($d->tgl_bonmerah_manajer));
 			$catatan			= $d->catatan_manajer_bonmerah;
+			$link 				= base_url();
 
-			$pesan	= 'Bon Merah atas nama '.$pegawai.' diajukan pada '.$tglpengajuan.' dengan keterangan '.$ket.', total biaya '.$biaya.' telah disetujui oleh manajer '.$manajer.' pada '.$tglsetujui.' dengan catatan '.$catatan.'. Mohon ditindaklanjuti. Terimakasih';
+			$pesan	= 'Bon Merah atas nama '.$pegawai.' diajukan pada '.$tglpengajuan.' dengan keterangan '.$ket.', total biaya '.$biaya.' telah disetujui oleh manajer '.$manajer.' pada '.$tglsetujui.' dengan catatan '.$catatan.'. Mohon ditindaklanjuti. Terimakasih. Silahkan klik link berikut ini: '.$link.'';
 
 			$wa = '<a title="Notif WA Ke Direktur" class="btn btn-sm btn-success" href="https://wa.me/6281213336906/?text='.$pesan.'" target="_blank"><i class="bi bi-whatsapp"></i> Notif WA</a>';
 

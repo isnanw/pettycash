@@ -28,26 +28,25 @@ class Profil extends CI_Controller{
         $x['title'] = 'Profil';
 		$this->load->view('backend/menu',$x);
 		$this->load->view('backend/_partials/templatejs');
-		if($this->session->userdata('access')=='1') {
-			if($this->session->userdata('access') != "1"){
-				$url=base_url('login_user');
-	            redirect($url);
-			};
-
+		// if($this->session->userdata('access')=='1' || $this->session->userdata('access')=='3' || $this->session->userdata('access')=='4' || $this->session->userdata('access')=='5') {
+		// 	if($this->session->userdata('access') != "1" || $this->session->userdata('access') !='3' || $this->session->userdata('access') !='4' || $this->session->userdata('access') !='5'){
+		// 		$url=base_url('login_user');
+	  //           redirect($url);
+		// 	};
 
 			$this->load->view('backend/v_profil_setting',$x);
 
-		} else {
-			$x['title'] = 'Profil';
-
-			$this->load->view('backend/v_profil_setting_karyawan',$x);
-		}
+		// } else {
+		// 	$x['title'] = 'Profil';
+		// 	$this->load->view('backend/v_profil_setting',$x);
+		// 	// $this->load->view('backend/v_profil_setting_karyawan',$x);
+		// }
 
 	}
 
 	function get_detail_profil(){
 		$id = $this->input->post('id');
-		if($this->session->userdata('access')=='1') {
+		if($this->session->userdata('access')=='1' || $this->session->userdata('access')=='3' || $this->session->userdata('access')=='4' || $this->session->userdata('access')=='5' ) {
 			$data = $this->profil_setting_model->get_detail_profil($id)->result();
 	        echo json_encode($data);
 		} else {
@@ -58,10 +57,10 @@ class Profil extends CI_Controller{
     }
 
     function change() {
-    		if($this->session->userdata('access') != "1"){
-				$url=base_url('login_user');
-	            redirect($url);
-			};
+    	// 	if($this->session->userdata('access') != "1" || $this->session->userdata('access') !='3' || $this->session->userdata('access') !='4' || $this->session->userdata('access') !='5'){
+			// 	$url=base_url('login_user');
+	    //         redirect($url);
+			// };
     	$id = $this->input->post('id');
     	$user_name = $this->input->post('user_name');
     	$user_email = $this->input->post('user_email');
