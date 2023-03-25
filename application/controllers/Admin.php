@@ -9,7 +9,7 @@ class Admin extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('backend/Login_model','login_model');
-        
+
         $this->load->model('Site_model','site_model');
         $this->load->helper('url');
         $this->load->helper('form');
@@ -18,22 +18,22 @@ class Admin extends CI_Controller{
 	}
 
 	function index(){
-        
+
         $data['form_username'] = form_input('','','name="username_cgtv_122021" id="username_cgtv_122021" class="form-control form-control-xl" placeholder="Email"');
         $data['form_password'] = form_password('','','name="password_cgtv_122021" id="inputPassword1" class="form-control form-control-xl" placeholder="Password"');
         $site = $this->site_model->get_site_data()->row_array();
         $data['site_title'] = $site['site_title'];
-        $data['title'] = 'Login Admin Stok Warehouse';
+        $data['title'] = 'Login Admin';
         $data['site_icon'] = $site['site_favicon'];
 		$this->load->view('backend/v_login',$data);
-        
+
 	}
 
 	function auth(){
         $this->form_validation->set_rules('username_cgtv_122021', 'Username', 'trim|required|max_length[100]|xss_clean');
         $this->form_validation->set_rules('password_cgtv_122021', 'Password', 'trim|required|max_length[25]|xss_clean');
-        
-        
+
+
         if ($this->form_validation->run() == FALSE){
             $url=base_url('admin');
             echo $this->session->set_flashdata('msg','<div class="alert alert-danger alert-dismissible show fade">Email atau Password Salah.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
@@ -57,17 +57,17 @@ class Admin extends CI_Controller{
                     	$id=$x['user_id'];
                     	$name=$x['user_name'];
                         $level=$x['user_level'];
-    					
+
                         $user_photo=$x['user_photo'];
                     	$this->session->set_userdata('id',$id);
                     	$this->session->set_userdata('name',$name);
                         $this->session->set_userdata('level',$level);
-    					
+
                         $this->session->set_userdata('user_photo',$user_photo);
                     	redirect('backend/dashboard');
-                   
-                    
-                 	}else{ 
+
+
+                 	}else{
                      	$url=base_url('admin');
                         echo $this->session->set_flashdata('msg','<div class="alert alert-danger alert-dismissible show fade">Anda tidak diizinkan Login disini.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                         redirect($url);
@@ -76,7 +76,7 @@ class Admin extends CI_Controller{
                         $url=base_url('admin');
                         echo $this->session->set_flashdata('msg','<div class="alert alert-danger alert-dismissible show fade">Akun ini dinonaktifkan.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                         redirect($url);
-                    }	
+                    }
                 }else{
                     $url=base_url('admin');
                     echo $this->session->set_flashdata('msg','<div class="alert alert-danger alert-dismissible show fade">Password Salah.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
@@ -91,11 +91,11 @@ class Admin extends CI_Controller{
         }
 
     }
-       
+
     function logout(){
         $this->session->sess_destroy();
         $url=base_url('admin');
         redirect($url);
     }
-	
+
 }

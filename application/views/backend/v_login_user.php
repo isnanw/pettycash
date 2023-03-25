@@ -25,23 +25,23 @@
 
 <body>
     <div id="auth">
-        
+
 <div class="row h-100">
     <div class="col-lg-5 col-12">
         <div id="auth-left">
-            
+
             <h1 class="auth-title">Log in</h1>
             <p class="auth-subtitle mb-5 display-4"><?php echo $site_title; ?></p>
 
-            
-            <?php 
+
+            <?php
                 echo form_open('login_user/auth');
             ?>
                 <?php echo $this->session->flashdata('msg');?>
 
                 <div class="form-group position-relative has-icon-left mb-4">
                     <?php echo $form_username; ?>
-                    
+
                     <div class="form-control-icon">
                         <i class="bi bi-google"></i>
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-              
+
                 <div class="form-check form-check-lg d-flex align-items-end">
                     <input class="form-check-input me-2" type="checkbox" onclick="myFunction2()" id="flexCheckDefault">
                     <label class="form-check-label text-gray-600" for="flexCheckDefault">
@@ -68,7 +68,7 @@
   } else {
     x.type = "password";
   }
-} 
+}
 </script>
 				<input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                 <div class="form-check form-check-lg d-flex align-items-end">
@@ -81,16 +81,16 @@
             <?php
                 echo form_close();
             ?>
-           
-            <div class="text-center mt-5 text-lg fs-4">
-                
+
+            <!-- <div class="text-center mt-5 text-lg fs-4">
+
                 <p><a class="font-bold" href="<?php echo site_url('reset')?>">Lupa Password?</a></p>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-lg-7 d-none d-lg-block">
         <div id="auth-right">
-            
+
         </div>
     </div>
 </div>
