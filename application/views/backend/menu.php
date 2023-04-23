@@ -97,7 +97,7 @@
 
                         <li class="sidebar-item <?php echo
                                     $this->uri->segment(2) == 'pettycash' ? 'active': '' ||
-                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                     $this->uri->segment(2) == 'pettycashmerah' ? 'active': ''
 
                                     ?> has-sub">
@@ -107,7 +107,7 @@
                             </a>
                             <ul class="submenu <?php echo
                                         $this->uri->segment(2) == 'pettycash' ? 'active': '' ||
-                                        $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                        $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                         $this->uri->segment(2) == 'pettycashmerah' ? 'active': ''
                                     ?>">
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycash' ? 'active': '' ?>">
@@ -115,6 +115,9 @@
                                 </li>
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerah' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
                                     <a href="<?php echo site_url('backend/pettycashmerah');?>">Bon Merah</a>
+                                </li>
+                                <li class="submenu-item <?php echo $this->uri->segment(2) == 'reimburse' || $this->uri->segment(2) == 'reimburse' ? 'active': '' ?>">
+                                    <a href="<?php echo site_url('backend/reimburse');?>">Reimburse</a>
                                 </li>
                             </ul>
                         </li>
@@ -138,7 +141,7 @@
                                 <span>Settings</span>
                             </a>
                             <ul class="submenu <?php echo
-                                        $this->uri->segment(2) == 'detail_website' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'detail_website' ? 'active': '' ||
                                     $this->uri->segment(2) == 'profil' ? 'active': '' ||
                                     $this->uri->segment(2) == 'users' ? 'active': ''
                                     ?>">
@@ -179,7 +182,7 @@
                     <?php elseif($this->session->userdata('access')=='3'):?>
                         <li class="sidebar-item <?php echo
                                     $this->uri->segment(2) == 'pettycash' ? 'active': '' ||
-                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                     $this->uri->segment(2) == 'pettycashmerah' ? 'active': ''
 
                                     ?> has-sub">
@@ -189,7 +192,7 @@
                             </a>
                             <ul class="submenu <?php echo
                                         $this->uri->segment(2) == 'pettycash' ? 'active': '' ||
-                                        $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                        $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                         $this->uri->segment(2) == 'pettycashmerah' ? 'active': ''
                                     ?>">
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycash' ? 'active': '' ?>">
@@ -197,6 +200,9 @@
                                 </li>
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerah' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
                                     <a href="<?php echo site_url('backend/pettycashmerah');?>">Bon Merah</a>
+                                </li>
+                                <li class="submenu-item <?php echo $this->uri->segment(2) == 'reimburse' || $this->uri->segment(2) == 'reimburse' ? 'active': '' ?>">
+                                    <a href="<?php echo site_url('backend/reimburse');?>">Reimburse</a>
                                 </li>
                             </ul>
                         </li>
@@ -218,7 +224,7 @@
                         </li> -->
                         <li class="sidebar-item <?php echo
                                     $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ||
-                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                     $this->uri->segment(2) == 'pettycashmerahmanajer' ? 'active': ''
 
                                     ?> has-sub">
@@ -228,7 +234,7 @@
                             </a>
                             <ul class="submenu <?php echo
                                         $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ||
-                                        $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                        $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                         $this->uri->segment(2) == 'pettycashmerahmanajer' ? 'active': ''
                                     ?>">
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmanajer' ? 'active': '' ?>">
@@ -236,6 +242,9 @@
                                 </li>
                                 <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerahmanajer' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
                                     <a href="<?php echo site_url('backend/pettycashmerahmanajer');?>">Bon Merah</a>
+                                </li>
+                                <li class="submenu-item <?php echo $this->uri->segment(2) == 'reimburse' || $this->uri->segment(2) == 'reimburse' ? 'active': '' ?>">
+                                    <a href="<?php echo site_url('backend/reimburse');?>">Reimburse</a>
                                 </li>
                             </ul>
                         </li>
@@ -258,7 +267,7 @@
                             </li> -->
                             <li class="sidebar-item <?php echo
                                     $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ||
-                                    $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                    $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                     $this->uri->segment(2) == 'pettycashmerahdirektur' ? 'active': ''
 
                                     ?> has-sub">
@@ -268,7 +277,7 @@
                                 </a>
                                 <ul class="submenu <?php echo
                                             $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ||
-                                            $this->uri->segment(2) == 'belanja' ? 'active': '' ||
+                                            $this->uri->segment(2) == 'reimburse' ? 'active': '' ||
                                             $this->uri->segment(2) == 'pettycashmerahdirektur' ? 'active': ''
                                         ?>">
                                     <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashdirektur' ? 'active': '' ?>">
@@ -276,6 +285,9 @@
                                     </li>
                                     <li class="submenu-item <?php echo $this->uri->segment(2) == 'pettycashmerahdirektur' || $this->uri->segment(2) == 'belanja' ? 'active': '' ?>">
                                         <a href="<?php echo site_url('backend/pettycashmerahdirektur');?>">Bon Merah</a>
+                                    </li>
+                                    <li class="submenu-item <?php echo $this->uri->segment(2) == 'reimburse' || $this->uri->segment(2) == 'reimburse' ? 'active': '' ?>">
+                                        <a href="<?php echo site_url('backend/reimburse');?>">Reimburse</a>
                                     </li>
                                 </ul>
                             </li>
