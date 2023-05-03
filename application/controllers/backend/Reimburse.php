@@ -36,7 +36,7 @@ class Reimburse extends CI_Controller{
 		$this->load->view('backend/_partials/templatejs');
 		$this->load->view('backend/v_reimburse',$x);
 	}
-	
+
 	public function get_ajax_list()
 	{
 		if($this->session->userdata('access') == "4"){
@@ -51,6 +51,21 @@ class Reimburse extends CI_Controller{
 		$no = $_POST['start'];
 		foreach ($list as $d) {
 			$status = $d->status;
+
+			$gambar = $d->imgbukti;
+			$pegawai 	= $d->user_name;
+			$manajer 	= $d->namaatasan;
+			$biaya		= "Rp " . number_format($d->biaya_reimburse, 0, "", ",");
+			$ket			= $d->ket_reimburse;
+			$tglpengajuan	= format_indo(date($d->tgl_reimburse));
+			$tglsetujui		= format_indo(date($d->tgl_reimburse_manajer));
+			$catatan			= $d->catatan_manajer_reimburse;
+			$link 				= base_url();
+
+			$pesan	= 'Reimburse atas nama '.$pegawai.' diajukan pada '.$tglpengajuan.' dengan keterangan '.$ket.', total biaya '.$biaya.' telah disetujui oleh manajer '.$manajer.' pada '.$tglsetujui.' dengan catatan '.$catatan.'. Mohon ditindaklanjuti. Terimakasih. Silahkan klik link berikut ini: '.$link.'';
+
+			$wa = '<a title="Notif WA Ke Direktur" class="btn btn-sm btn-success" href="https://wa.me/6281213336906/?text='.$pesan.'" target="_blank"><i class="bi bi-whatsapp"></i> Notif WA</a>';
+
 			$aksi = '';
 			if($this->session->userdata('access') == "5"){
 				if($status == 'DISETUJUI'){
@@ -63,7 +78,8 @@ class Reimburse extends CI_Controller{
 			}elseif($this->session->userdata('access') == "4"){
 				$aksi = '<div class="button">
 											<a class="btn icon icon-left btn-primary item_edit" href="javascript:void()" title="Bahas" onclick="edit_pettycashmanajer('."'".$d->id_reimburse."'".')"><i class="bi bi-pen-fill"></i> Bahas</a>
-										</div>';
+										</div>
+										'.$wa.'';
 			}else{
 				if($status == 'PENGAJUAN' || $status == '' || $status == NULL){
 					$aksi = '<div class="btn-group mb-1"><div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opsi</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton7"><a class="dropdown-item item_edit" href="javascript:void()" title="Edit" onclick="edit_reimburse('."'".$d->id_reimburse."'".')"><i class="bi bi-pen-fill"></i> Edit</a>

@@ -223,6 +223,7 @@ function edit_pettycash(id_pettycash)
                 $('[name="id"]').val(data.id_pettycash);
                 $('[name="ket"]').val(data.ket_pettycash);
                 $('[name="biaya"]').val(data.biaya_pettycash);
+                $('[name="biayabonmerah"]').val(data.biaya_bonmerah);
                 $('[name="bagian"]').val(data.id_bagian);
                 $(".show_img").html('<img src="'+base_url+'assets/images/fotobukti/'+data.imgbukti+'" width="150" height="150" class="rounded img-thumbnail">');
 
@@ -245,6 +246,7 @@ function addpettycash()
     var id = $(".id").val();
     var ket = $("#ket").val();
     var biaya = $("#biaya").val();
+    var biayabonmerah = $("#biayabonmerah").val();
     var bagian = $("#bagian").val();
     var picture_1 = $("#picture_1")[0].files[0];
 
@@ -252,6 +254,7 @@ function addpettycash()
     fd.append("id", id);
     fd.append("ket", ket);
     fd.append("biaya", biaya);
+    fd.append("biayabonmerah", biayabonmerah);
     fd.append("bagian", bagian);
     fd.append("picture_1", picture_1);
     fd.append("<?php echo $this->security->get_csrf_token_name(); ?>", '<?php echo $this->security->get_csrf_hash(); ?>');

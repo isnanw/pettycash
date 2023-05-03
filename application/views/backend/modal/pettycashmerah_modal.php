@@ -32,6 +32,13 @@
                                     <span class="help-block text-danger"></span>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="biayabonmerah">Biaya Bon Merah<b>(Rp)</b></label>
+                                    <input type="number" name="biayabonmerah" class="form-control biayabonmerah" id="biayabonmerah" placeholder="Biaya" required>
+                                    <span class="help-block text-danger"></span>
+                                </div>
+                            </div>
                             <div class="form-group" hidden>
                                     <label for="bagian">Bagian</label>
                                     <select class="form-select bagian" name="bagian" id="bagian" style="width:100%">

@@ -110,12 +110,18 @@ class Pettycashmerahdirektur extends CI_Controller{
 				$tgl			= '<small><b>Bon Hijau Dirilis</b>: <br>'.format_indo(date($d->tgl_pettycash_direktur)).'</small>';
 			}
 
+			if ($d->biaya_bonmerah == NULL) {
+				$biayabonmerah = $d->biaya_pettycash;
+			}else{
+				$biayabonmerah = $d->biaya_bonmerah;
+			}
+
 			$row = array();
 			$row[] = $no;
 
 			// $row[] = "<div class='row gallery' data-bs-toggle='modal' data-bs-target='#galleryModal$d->id_pettycash'><a href='#'><img class='w-100 active' src='../assets/images/fotobukti/$d->imgbukti' data-bs-target='#Gallerycarousel'></a></div>";
 			$row[] = $tgl;
-			$row[] = "Rp " . number_format($d->biaya_pettycash, 0, "", ",");
+			$row[] = "Rp " . number_format($d->biaya_pettycash, 0, "", ",")  ."<hr>". "Rp " . number_format($biayabonmerah, 0, "", ",");
 			$row[] = $d->ket_pettycash.''.'<br><small><span class="badge bg-light-warning">'.$d->namabagian.'</span></small>';
 			$row[] = $d->user_name. '<br><span class="badge bg-light-warning">'.$d->namaatasan.'</span>' ;
 			$row[] = '<div class="badge bg-light-'.$actclass.' color-'.$actclass.'"><i class="bi bi-'.$icon.'-circle"></i> '.$actket.'</div>'.$statusbukti.'';
